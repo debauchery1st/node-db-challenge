@@ -15,4 +15,10 @@ router.get("/", (req, res) => {
     });
 });
 
+router.post("/", (req, res) => {
+  Projects.addProject(req.body).then(newProject =>
+    res.status(200).json(newProject)
+  );
+});
+
 module.exports = router;

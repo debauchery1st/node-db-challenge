@@ -16,6 +16,6 @@ function getProjectById(id) {
 
 function addProject(project) {
   return db("project")
-    .insert(p, "id")
-    .then(p => getProjectById(p.id));
+    .insert(project, "id")
+    .then(arrayOfOne => getProjectById(arrayOfOne[0]));
 }
