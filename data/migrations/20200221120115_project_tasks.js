@@ -10,9 +10,8 @@ exports.up = function(knex) {
       .inTable("project")
       .onUpdate("CASCADE");
     tbl
-      .integer("resource_id")
+      .integer("resource_id") // not every task will need to tap a resource
       .unsigned()
-      .notNullable()
       .references("id")
       .inTable("resource")
       .onUpdate("CASCADE");
