@@ -15,26 +15,29 @@ function getTasksById(id) {
   return db("task").where({ id });
 }
 
-function addTask(task, project_id, resource_id) {
+function connectWithProject(task_id, project_id) {
+  return db("project_tasks").insert({ project_id, task_id });
+}
+
+function addTask(task, project_id) {
   if (!project_id) {
     return { error: "every task requires a project" };
   }
   return db("task")
     .insert(task, "id")
-    .then(t =>
-      db("project_tasks").insert({ project_id, resource_id, task_id: t.id })
-    )
+    .then(arrayOfOne => connectWithProject(arrayOfOne[0], project_id))
     .then(getTasksById(t.id));
 }
 
-function updateTask(task, id, project_id, resource_id) {
+function updateTask(task, id, project_id) {
   if (!id && !task.id) {
-    return { error: "task id required" };
+    return { error: "id required" };
   }
-  if (!project_id) {
-    return { error: "project id required for update." };
+  if (!project_id && !task.project_id) {
+    return { error: "project id required to update task" };
   }
   return db("task")
     .update(task)
-    .where({ id });
+    .where({ id })
+    .then(arrayOfOne => getTasksById(arrayOfOne[0]));
 }
