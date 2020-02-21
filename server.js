@@ -3,8 +3,8 @@ const helmet = require("helmet");
 const server = express();
 
 const projectsRouter = require("./projects/project-router");
-const resourceRouter = require("./Resources/resource-router");
-const taskRouter = require("./Tasks/task-router");
+const resourceRouter = require("./resources/resource-router");
+const taskRouter = require("./tasks/task-router");
 
 server.use(express.json());
 server.use(helmet());
