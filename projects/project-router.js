@@ -14,4 +14,5 @@ router.get("/", (req, res) => {
       res.status(500).json({ message: "Failed to get projects" });
     });
 });
+
 module.exports = router;

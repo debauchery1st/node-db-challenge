@@ -2,7 +2,8 @@ const db = require("../data/db-config.js");
 
 module.exports = {
   getTasks,
-  getTasksById
+  getTasksById,
+  addTask
 };
 
 function getTasks() {
@@ -11,4 +12,10 @@ function getTasks() {
 
 function getTasksById(id) {
   return db("task").where({ id });
+}
+
+function addTask(task) {
+  return db("task")
+    .insert(task, "id")
+    .then(t => getProjectById(t.id));
 }

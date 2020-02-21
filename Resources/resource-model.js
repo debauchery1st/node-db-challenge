@@ -2,7 +2,8 @@ const db = require("../data/db-config.js");
 
 module.exports = {
   getResources,
-  getResourceById
+  getResourceById,
+  addResource
 };
 
 function getResources() {
@@ -11,4 +12,10 @@ function getResources() {
 
 function getResourceById(id) {
   return db("resource").where({ id });
+}
+
+function addResource(resource) {
+  return db("resource")
+    .insert(resource, "id")
+    .then(r => getProjectById(r.id));
 }
