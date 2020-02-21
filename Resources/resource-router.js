@@ -14,4 +14,10 @@ router.get("/", (req, res) => {
     });
 });
 
+router.post("/", (req, res) => {
+  Resource.addResource(req.body).then(newResource =>
+    res.status(200).json(newResource)
+  );
+});
+
 module.exports = router;

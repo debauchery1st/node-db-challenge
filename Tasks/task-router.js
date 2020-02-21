@@ -14,4 +14,10 @@ router.get("/", (req, res) => {
     });
 });
 
+router.post("/:id", (req, res) => {
+  Tasks.addTask(req.body, req.params.id).then(newTask =>
+    res.status(200).json(newTask)
+  );
+});
+
 module.exports = router;
